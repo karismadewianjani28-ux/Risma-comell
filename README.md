@@ -1,2 +1,0 @@
-# Risma-comell
-cihuy
