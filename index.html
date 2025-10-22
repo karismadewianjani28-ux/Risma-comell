@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>risma Cantik ✨</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Font: Quicksand -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    :root {
+      --sidebar-w: 260px;
+      --sidebar-bg: #fff0f6;
+      --radius: 20px;
+      --transition: .3s cubic-bezier(.4,0,.2,1);
+      --pink: #ff85a2;
+      --lavender: #c8b6ff;
+      --peach: #ffd1dc;
+    }
+
+    [data-bs-theme="dark"] {
+      --sidebar-bg: #2e2237;
+      --bs-light: #1f1f1f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff5f9;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--peach);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: margin-left var(--transition);
+    }
+
+    .sidebar .logo {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .sidebar .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--pink);
+    }
+
+    .sidebar .nav-link {
+      color: var(--bs-body-color);
+      font-weight: 600;
+      border-radius: var(--radius);
+      margin: .25rem 1rem;
+      padding: .75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+      background: var(--pink);
+      color: #fff;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 1.5rem;
+      animation: fadeIn .4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-clean {
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 18px rgba(0,0,0,.05);
+    }
+
+    @media (max-width: 991px) {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 1050;
+        margin-left: calc(-1 * var(--sidebar-w));
+      }
+      .sidebar.show {
+        margin-left: 0;
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,.35);
+        z-index: 1040;
+        display: none;
+      }
+      .sidebar-backdrop.show {
+        display: block;
+      }
+    }
+
+    .radius-20 { border-radius: var(--radius); }
+    .bg-pink { background-color: var(--pink) !important; }
+    .text-pink { color: var(--pink) !important; }
+  </style>
+</head>
+
+<body>
+  <!-- ========== TOPBAR ========== -->
+  <nav class="navbar navbar-expand navbar-light bg-white border-bottom px-3 shadow-sm">
+    <button class="btn btn-sm btn-outline-secondary d-lg-none me-2" id="toggleSidebar" aria-label="Menu">
+      <i class="bi bi-list fs-4"></i>
+    </button>
+    <span class="navbar-brand fw-bold mb-0 text-pink">risma Cantik ✨</span>
+
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <button class="btn btn-icon btn-outline-secondary rounded-circle" id="themeToggle" aria-label="Tema">
+        <i class="bi bi-sun-fill"></i>
+      </button>
+      <div class="dropdown">
+        <a href="#" class="d-block link-dark dropdown-toggle" data-bs-toggle="dropdown">
+          <img src="https://i.pravatar.cc/40?u=girl" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+          <li><a class="dropdown-item" href="#"><i class="bi bi-person-heart me-2"></i>Profil</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-palette me-2"></i>Ganti Tema</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" id="menuKeluar"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== WRAPPER ========== -->
+  <div class="d-flex flex-fill">
+    <!-- ---------- SIDEBAR ---------- -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <img src="https://i.pravatar.cc/120?u=girl" alt="Logo">
+        <div class="mt-2 fw-bold" style="color:var(--pink)">Hai, Bestie!</div>
+      </div>
+      <nav class="nav flex-column">
+        <a class="nav-link active" data-section="home"><i class="bi bi-house-heart"></i> Beranda</a>
+        <a class="nav-link" data-section="gambar"><i class="bi bi-image"></i> Galeri</a>
+        <a class="nav-link" data-section="video"><i class="bi bi-camera-reels"></i> Video</a>
+        <a class="nav-link" data-section="audio"><i class="bi bi-soundwave"></i> Musik</a>
+      </nav>
+      <div class="mt-auto p-3 small text-muted">© 2025 dengan 💗</div>
+    </aside>
+
+    <!-- ---------- BACKDROP ---------- -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ---------- MAIN ---------- -->
+    <main class="main-content" id="mainContent"></main>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* ========== SIDEBAR ========== */
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const toggleBtn = document.getElementById('toggleSidebar');
+
+    function toggleSidebar(force) {
+      const show = force ?? !sidebar.classList.contains('show');
+      sidebar.classList.toggle('show', show);
+      backdrop.classList.toggle('show', show);
+    }
+    toggleBtn.addEventListener('click', () => toggleSidebar());
+    backdrop.addEventListener('click', () => toggleSidebar(false));
+
+    /* ========== THEME ========== */
+    const html = document.documentElement;
+    const themeBtn = document.querySelector('#themeToggle i');
+
+    function applyTheme(theme) {
+      html.setAttribute('data-bs-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeBtn.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+    }
+    const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(localStorage.getItem('theme') ?? (preferDark ? 'dark' : 'light'));
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = html.getAttribute('data-bs-theme');
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    /* ========== CONTENT ========== */
+    const main = document.getElementById('mainContent');
+    const pages = {
+      home: `
+        <div class="card card-clean p-3 p-lg-4">
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-7">
+              <h2 class="fw-bold mb-2">Hai, Semuanya ✨</h2>
+              <p class="text-muted mb-3">Mari liat isi galeri risma yukk</p>
+              <a href="#" class="btn bg-pink text-white">Mulai Bergaya</a>
+            </div>
+            <div class="col-lg-5">
+              <img src="gg.jpg" class="img-fluid radius-20" alt="Girl with pastel">
+            </div>
+          </div>
+        </div>`,
+      gambar: `
+        <h2 class="mb-3">Galeri Risma 💗</h2>
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-3">
+            <img src="1.jpg" class="img-fluid rounded shadow-sm" alt="Risma 1">
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <img src="2.jpg" class="img-fluid rounded shadow-sm" alt="Risma 2">
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <img src="3.jpg" class="img-fluid rounded shadow-sm" alt="Risma 3">
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <img src="4.jpg" class="img-fluid rounded shadow-sm" alt="Risma 4">
+          </div>
+          <div class="col-6 col-md-4 col-lg-3">
+            <img src="5.jpg" class="img-fluid rounded shadow-sm" alt="Risma 5">
+          </div>
+        </div>`,
+      video: `
+        <h2 class="mb-3">Video Risma 🌸</h2>
+        <div class="card card-clean p-3">
+          <div class="ratio ratio-16x9 radius-20 overflow-hidden">
+            <video controls preload="metadata" poster="https://i.ytimg.com/vi_webp/gC6dQrScmWE/maxresdefault.webp">
+              <source src="hh.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>`,
+      audio: `
+        <h2 class="mb-3">Playlist 🎧</h2>
+        <div class="card card-clean p-3">
+          <audio controls class="w-100" id="myAudio">
+            <source src="vv.mp3" type="audio/mpeg">
+            Browser kamu tidak mendukung tag audio.
+          </audio>
+          <div class="form-text mt-2">Klik ▶️ jika tidak otomatis diputar.</div>
+        </div>
+
+        <script>
+          document.getElementById('myAudio').play().catch(() => {});
+        <\/script>`
+    };
+
+    function load(sec) {
+      main.innerHTML = pages[sec] || pages.home;
+      document.querySelectorAll('.sidebar .nav-link').forEach(a=>a.classList.remove('active'));
+      document.querySelector(`.sidebar .nav-link[data-section="${sec}"]`)?.classList.add('active');
+      if (window.innerWidth < 992) toggleSidebar(false);
+    }
+    document.querySelectorAll('.sidebar .nav-link').forEach(link=>{
+      link.addEventListener('click', e=>{
+        e.preventDefault();
+        load(link.dataset.section);
+      });
+    });
+    load('home');
+
+    /* ========== KELUAR ========== */
+    document.getElementById('menuKeluar').addEventListener('click', e=>{
+      e.preventDefault();
+      main.innerHTML = `
+        <div class="card card-clean text-center p-4">
+          <i class="bi bi-box-arrow-right text-pink fs-1"></i>
+          <h4 class="mt-3">Sampai jumpa, bestie!</h4>
+          <p class="text-muted mb-0">Jangan lupa tetap sparky hari ini 💗</p>
+        </div>`;
+      if (window.innerWidth < 992) toggleSidebar(false);
+    });
+  </script>
+</body>
+</html>
